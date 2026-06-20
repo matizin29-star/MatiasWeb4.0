@@ -6,13 +6,15 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
-const Model3DComponent = dynamic(() => import("@/components/Model3D"), { ssr: false, loading: () => <div className="w-full h-full rounded-2xl bg-white/[0.02] animate-pulse" /> });
+const Robot3DComponent = dynamic(() => import("@/components/Robot3D"), { ssr: false, loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-16 h-16 rounded-full border border-white/5 flex items-center justify-center"><div className="w-4 h-4 rounded-full bg-electric/30 animate-pulse-subtle" /></div></div> });
 const ShaderAnimation = dynamic(() => import("@/components/ShaderAnimation"), { ssr: false });
 
-function Hero3DFallback() {
+function Robot3DFallback() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-full h-full rounded-2xl bg-white/[0.02] animate-pulse" />
+      <div className="w-16 h-16 rounded-full border border-white/5 flex items-center justify-center">
+        <div className="w-4 h-4 rounded-full bg-electric/30 animate-pulse-subtle" />
+      </div>
     </div>
   );
 }
@@ -98,8 +100,8 @@ function HeroSection() {
           </div>
 
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-            <ErrorBoundary fallback={<Hero3DFallback />}>
-              <Model3DComponent />
+            <ErrorBoundary fallback={<Robot3DFallback />}>
+              <Robot3DComponent />
             </ErrorBoundary>
           </div>
         </div>
