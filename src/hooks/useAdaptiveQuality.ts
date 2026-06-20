@@ -15,7 +15,20 @@ function getSnapshot(): QualityConfig {
   return getQualityConfig();
 }
 
+function getServerSnapshot(): QualityConfig {
+  return {
+    tier: "high",
+    fpsTarget: 60,
+    canvasResolutionScale: 0.6,
+    enableShaders: true,
+    enableCursor: true,
+    enableSpline: true,
+    particleCount: 70,
+    mouseThrottleMs: 16,
+  };
+}
+
 export function useAdaptiveQuality(): QualityConfig {
-  const config = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  const config = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   return config;
 }

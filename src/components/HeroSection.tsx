@@ -1,16 +1,17 @@
 "use client";
 
-import { memo, lazy, Suspense } from "react";
+import { memo, Suspense } from "react";
+import dynamic from "next/dynamic";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
-const SplineScene = lazy(() => import("@/components/ui/splite"));
-const ShaderAnimation = lazy(() => import("@/components/ShaderAnimation"));
+const SplineScene = dynamic(() => import("@/components/ui/splite"), { ssr: false });
+const ShaderAnimation = dynamic(() => import("@/components/ShaderAnimation"), { ssr: false });
 
 function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center pt-24 md:pt-28 pb-16 md:pb-24 overflow-hidden">
-      <Suspense fallback={null}><ShaderAnimation /></Suspense>
+      <ShaderAnimation />
 
       <div className="absolute inset-0 grid-bg radial-mask pointer-events-none opacity-30 z-0" />
 
