@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/SmoothScroll";
 import Logo from "@/components/Logo";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { SITE, WHATSAPP_LINK } from "@/lib/constants";
 
 const Header = dynamic(() => import("@/components/Header"), { loading: () => <div className="h-16 md:h-20" /> });
@@ -73,17 +74,17 @@ export default function Home() {
   return (
     <SmoothScroll>
       <div id="main-content" className="relative min-h-screen bg-ebg overflow-hidden selection:bg-electric/30 selection:text-white">
-        <CustomCursor />
-        <MouseLighting />
-        <AntiGravityParticles />
+        <ErrorBoundary><CustomCursor /></ErrorBoundary>
+        <ErrorBoundary><MouseLighting /></ErrorBoundary>
+        <ErrorBoundary><AntiGravityParticles /></ErrorBoundary>
 
         <div className="absolute top-0 left-[-20%] w-[60%] h-[60%] rounded-full bg-electric-dim blur-[150px] pointer-events-none" />
         <div className="absolute bottom-[20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-electric-dim blur-[150px] pointer-events-none" />
 
-        <Header />
+        <ErrorBoundary><Header /></ErrorBoundary>
 
         <section id="hero">
-          <HeroSection />
+          <ErrorBoundary><HeroSection /></ErrorBoundary>
         </section>
 
         <section id="diferenciais" className="py-24 md:py-32 relative z-10">
@@ -97,11 +98,11 @@ export default function Home() {
                 Tecnologia proprietária, design premiado e inteligência artificial integrada em cada projeto.
               </p>
             </div>
-            <DiferenciaisCards />
+            <ErrorBoundary><DiferenciaisCards /></ErrorBoundary>
           </div>
         </section>
 
-        <AIDashboard />
+        <ErrorBoundary><AIDashboard /></ErrorBoundary>
 
         <section id="portfolio" className="py-24 md:py-32 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
@@ -116,12 +117,12 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              <ProjectMockup title="SaaS Corporativo" type="Plataforma de IA" gradient="from-electric to-blue-500" />
-              <ProjectMockup title="Landing Page de Vendas" type="Infoprodutos & Serviços" gradient="from-electric to-purple-500" />
-              <ProjectMockup title="E-Commerce Premium" type="Loja Virtual" gradient="from-electric to-cyan-500" />
-              <ProjectMockup title="Clínica Médica / Estética" type="Agendamentos" gradient="from-emerald-400 to-electric" />
-              <ProjectMockup title="Escritórios de Advocacia" type="Institucional" gradient="from-amber-400 to-orange-500" />
-              <ProjectMockup title="Prestadores de Serviços" type="Captação de Clientes" gradient="from-rose-500 to-electric" />
+              <ErrorBoundary><ProjectMockup title="SaaS Corporativo" type="Plataforma de IA" gradient="from-electric to-blue-500" /></ErrorBoundary>
+              <ErrorBoundary><ProjectMockup title="Landing Page de Vendas" type="Infoprodutos & Serviços" gradient="from-electric to-purple-500" /></ErrorBoundary>
+              <ErrorBoundary><ProjectMockup title="E-Commerce Premium" type="Loja Virtual" gradient="from-electric to-cyan-500" /></ErrorBoundary>
+              <ErrorBoundary><ProjectMockup title="Clínica Médica / Estética" type="Agendamentos" gradient="from-emerald-400 to-electric" /></ErrorBoundary>
+              <ErrorBoundary><ProjectMockup title="Escritórios de Advocacia" type="Institucional" gradient="from-amber-400 to-orange-500" /></ErrorBoundary>
+              <ErrorBoundary><ProjectMockup title="Prestadores de Serviços" type="Captação de Clientes" gradient="from-rose-500 to-electric" /></ErrorBoundary>
             </div>
           </div>
         </section>
@@ -129,10 +130,10 @@ export default function Home() {
         <section className="py-20 md:py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              <StatCounter value="+300%" title="Aumento médio de conversão" />
-              <StatCounter value="+95%" title="Satisfação dos clientes" />
-              <StatCounter value="100%" title="Responsivo & Otimizado" />
-              <StatCounter value="24/7" title="Suporte Integrado" />
+              <ErrorBoundary><StatCounter value="+300%" title="Aumento médio de conversão" /></ErrorBoundary>
+              <ErrorBoundary><StatCounter value="+95%" title="Satisfação dos clientes" /></ErrorBoundary>
+              <ErrorBoundary><StatCounter value="100%" title="Responsivo & Otimizado" /></ErrorBoundary>
+              <ErrorBoundary><StatCounter value="24/7" title="Suporte Integrado" /></ErrorBoundary>
             </div>
           </div>
         </section>
@@ -148,13 +149,13 @@ export default function Home() {
                 Seis etapas comprovadas para transformar sua visão em uma máquina de resultados.
               </p>
             </div>
-            <MetodoTimeline />
+            <ErrorBoundary><MetodoTimeline /></ErrorBoundary>
           </div>
         </section>
 
         <section id="contato" className="py-24 md:py-32 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
-            <CTASection />
+            <ErrorBoundary><CTASection /></ErrorBoundary>
           </div>
         </section>
 
@@ -199,7 +200,7 @@ export default function Home() {
           </div>
         </footer>
 
-        <FloatingWhatsApp />
+        <ErrorBoundary><FloatingWhatsApp /></ErrorBoundary>
       </div>
     </SmoothScroll>
   );
