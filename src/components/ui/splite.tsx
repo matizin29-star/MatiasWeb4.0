@@ -2,48 +2,57 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useAdaptiveQuality } from "@/hooks/useAdaptiveQuality";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center" aria-label="Carregando modelo 3D">
-      <div className="w-8 h-8 border-2 border-neon-blue border-t-transparent rounded-full animate-spin" />
-    </div>
-  ),
+  loading: () => null,
 });
 
-interface SplineSceneProps {
-  scene: string;
-  className?: string;
-}
-
-export function SplineScene({ scene, className }: SplineSceneProps) {
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+export default function SplineScene() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const q = useAdaptiveQuality();
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!q.enableSpline) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShouldLoad(true);
+          setIsVisible(true);
           observer.disconnect();
         }
       },
       { rootMargin: "200px" }
     );
-    observer.observe(el);
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     return () => observer.disconnect();
-  }, []);
+  }, [q.enableSpline]);
+
+  if (!q.enableSpline) {
+    return (
+      <div ref={containerRef} className="w-full h-full flex items-center justify-center">
+        <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
+          <div className="w-4 h-4 rounded-full bg-electric/30 animate-pulse-subtle" />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div ref={ref} className={className}>
-      {shouldLoad ? (
-        <Spline scene={scene} className="w-full h-full" />
+    <div ref={containerRef} className="w-full h-full relative">
+      {isVisible ? (
+        <Spline scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" />
       ) : (
-        <div className="w-full h-full flex items-center justify-center" aria-label="Carregando modelo 3D">
-          <div className="w-8 h-8 border-2 border-neon-blue border-t-transparent rounded-full animate-spin" />
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
+            <div className="w-4 h-4 rounded-full bg-electric/30 animate-pulse-subtle" />
+          </div>
         </div>
       )}
     </div>

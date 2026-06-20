@@ -7,6 +7,7 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
@@ -19,21 +20,40 @@ const geistMono = Geist_Mono({
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["700", "800", "900"],
   display: "swap",
+  preload: true,
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#060609",
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
   title: {
-    default: SITE.name,
-    template: `%s | ${SITE.name}`,
+    default: `${SITE.name} — ${SITE.tagline}`,
+    template: `%s — ${SITE.name}`,
   },
   description: SITE.description,
   keywords: SITE.keywords,
-  authors: [{ name: SITE.name, url: SITE.url }],
+  authors: [{ name: SITE.name }],
   creator: SITE.name,
-  publisher: SITE.name,
+  metadataBase: new URL(SITE.url),
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: SITE.name,
+    title: `${SITE.name} — Tecnologia e Design Premium`,
+    description: SITE.description,
+    url: SITE.url,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — Tecnologia e Design Premium`,
+    description: SITE.description,
+  },
   robots: {
     index: true,
     follow: true,
@@ -45,37 +65,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  openGraph: {
-    type: "website",
-    locale: "pt_BR",
-    siteName: SITE.name,
-    title: SITE.name,
-    description: SITE.description,
-    url: SITE.url,
-    images: [
-      {
-        url: `${SITE.url}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: SITE.name,
-      },
-    ],
+  icons: {
+    icon: "/favicon.ico",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE.name,
-    description: SITE.description,
-    images: [`${SITE.url}/og-image.png`],
-  },
-  alternates: {
-    canonical: SITE.url,
-  },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -83,44 +75,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    foundingYear: SITE.foundationYear,
+    email: SITE.email,
+    telephone: SITE.whatsapp,
+    areaServed: "Brasília, Brazil",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Brasília",
+      addressRegion: "DF",
+      addressCountry: "BR",
+    },
+    sameAs: [
+      SITE.whatsappFull,
+    ],
+  };
+
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased dark`}
-      style={{ backgroundColor: "#000000" }}
-    >
-      <body className="min-h-full bg-black text-white font-outfit overflow-x-hidden selection:bg-neon-purple/50 selection:text-white">
-        <a href="#main-content" className="skip-to-content">
-          Ir para o conteúdo principal
-        </a>
+    <html lang="pt-BR" className="dark">
+      <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: SITE.name,
-              url: SITE.url,
-              logo: `${SITE.url}/favicon.ico`,
-              description: SITE.description,
-              sameAs: [
-                `https://wa.me/${SITE.whatsapp}`,
-              ],
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+55-61-99298-2801",
-                contactType: "sales",
-                availableLanguage: ["Portuguese", "English"],
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Brasília",
-                addressRegion: "DF",
-                addressCountry: "BR",
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
+      >
         {children}
       </body>
     </html>

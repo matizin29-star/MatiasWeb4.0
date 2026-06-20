@@ -1,30 +1,20 @@
 "use client";
 
 import { memo } from "react";
-import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
 function FloatingWhatsApp() {
   return (
-    <motion.a 
+    <a
       href={WHATSAPP_LINK}
-      target="_blank" 
+      target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full z-40 flex items-center justify-center text-white shadow-2xl"
-      style={{
-        boxShadow: "0 0 20px rgba(0, 212, 255, 0.4)",
-      }}
+      className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-electric text-white flex items-center justify-center glow-electric shadow-lg animate-fab-in hover:scale-110 active:scale-95 transition-transform duration-200"
       aria-label="Fale conosco pelo WhatsApp"
     >
-      <div className="absolute inset-0 rounded-full bg-neon-blue opacity-30 animate-ping" />
-      <MessageCircle size={26} />
-    </motion.a>
+      <MessageCircle size={24} />
+    </a>
   );
 }
 

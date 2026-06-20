@@ -6,10 +6,11 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  reactStrictMode: true,
+  reactStrictMode: false,
   skipTrailingSlashRedirect: true,
   compress: true,
   poweredByHeader: false,
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;

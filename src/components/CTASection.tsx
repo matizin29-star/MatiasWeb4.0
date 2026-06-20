@@ -1,52 +1,47 @@
 "use client";
 
 import { memo } from "react";
-import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
 function CTASection() {
   return (
-    <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.96 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="glass-panel p-8 sm:p-12 md:p-16 rounded-3xl border border-white/10 relative overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-        style={{
-          boxShadow: "0 0 35px rgba(0, 212, 255, 0.03)"
-        }}
-      >
-        {/* Glowing decorative gradient behind card */}
-        <div className="absolute inset-0 bg-gradient-to-br from-neon-blue/5 via-transparent to-neon-purple/5 pointer-events-none" />
-        
-        <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-white tracking-tight">
+    <div className="glass-panel-strong rounded-2xl p-8 md:p-12 lg:p-16 max-w-5xl mx-auto text-center relative overflow-hidden section-reveal">
+      <div className="absolute inset-0 bg-gradient-to-br from-electric/5 via-transparent to-transparent opacity-30 pointer-events-none" />
+
+      <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
+        <span className="inline-block text-[10px] font-semibold text-electric uppercase tracking-[0.2em]">
+          Comece Agora
+        </span>
+
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
           Seu concorrente já está online.
+          <br />
+          <span className="text-gradient-electric">E você?</span>
         </h2>
-        <h3 className="text-3xl sm:text-4xl md:text-6xl font-black bg-gradient-to-r from-neon-blue via-white to-neon-purple bg-clip-text text-transparent mt-2 mb-6">
-          E você?
-        </h3>
-        
-        <p className="text-gray-300 text-xs sm:text-sm md:text-base max-w-lg mx-auto mb-8 md:mb-10 leading-relaxed font-light">
-          NÃO PERCA MAIS VENDAS PARA A CONCORRÊNCIA COM UM SITE LENTO OU AMADOR. DÊ UM SALTO DE AUTORIDADE DIGITAL COM OS SITES PREMIUM DA MATIAS WEB.
+
+        <p className="text-white/50 text-base md:text-lg font-light leading-relaxed">
+          Enquanto você lê isso, novas empresas estão conquistando clientes online.
+          Sua presença digital premium começa com uma conversa.
         </p>
 
-        <motion.a 
-          href={WHATSAPP_LINK}
-          target="_blank" 
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="inline-flex items-center gap-2.5 bg-gradient-to-r from-neon-blue via-[#8A2BE2] to-neon-blue bg-[size:200%_auto] text-white px-6 py-4 sm:px-8 sm:py-5 rounded-full text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-wider shadow-lg hover:shadow-neon-blue/20 transition-all duration-500 hover:bg-right"
-          style={{
-            boxShadow: "0 0 20px rgba(0, 212, 255, 0.25)"
-          }}
-        >
-          <MessageCircle size={18} />
-          SOLICITAR ORÇAMENTO AGORA
-        </motion.a>
-      </motion.div>
+        <div>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-electric text-white font-bold text-base rounded-xl transition-all duration-300 hover:bg-[#0052CC] glow-electric"
+          >
+            <MessageCircle size={20} />
+            Solicitar Orçamento Agora
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+
+        <p className="text-xs text-white/20 font-light">
+          Atendimento personalizado • Resposta em até 2 horas • Orçamento sem compromisso
+        </p>
+      </div>
     </div>
   );
 }

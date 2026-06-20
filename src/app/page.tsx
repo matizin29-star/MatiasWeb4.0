@@ -1,9 +1,29 @@
 import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/SmoothScroll";
-import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
 import Logo from "@/components/Logo";
 import { SITE, WHATSAPP_LINK } from "@/lib/constants";
+
+const Header = dynamic(() => import("@/components/Header"), { loading: () => <div className="h-16 md:h-20" /> });
+
+const HeroSection = dynamic(() => import("@/components/HeroSection"), {
+  loading: () => (
+    <section className="relative min-h-screen flex items-center pt-24 md:pt-28 pb-16 md:pb-24">
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div className="space-y-6 md:space-y-8">
+            <div className="h-6 w-48 rounded-full bg-white/5 animate-pulse" />
+            <div className="h-16 md:h-20 w-3/4 rounded-xl bg-white/5 animate-pulse" />
+            <div className="h-4 w-full rounded bg-white/5 animate-pulse" />
+            <div className="h-4 w-2/3 rounded bg-white/5 animate-pulse" />
+          </div>
+          <div className="h-[300px] md:h-[400px] lg:h-[500px] rounded-2xl bg-white/5 animate-pulse" />
+        </div>
+      </div>
+    </section>
+  ),
+});
+
+const MouseLighting = dynamic(() => import("@/components/MouseLighting"));
 
 const DiferenciaisCards = dynamic(() => import("@/components/DiferenciaisCards"), {
   loading: () => <div className="h-64 animate-pulse rounded-2xl bg-white/5" />,
@@ -29,9 +49,17 @@ const StatCounter = dynamic(() => import("@/components/StatCounter"), {
   ),
 });
 
-const CustomCursor = dynamic(() => import("@/components/CustomCursor"));
+const AIDashboard = dynamic(() => import("@/components/AIDashboard"), {
+  loading: () => <div className="h-64 animate-pulse rounded-2xl bg-white/5" />,
+});
 
-const AntiGravityParticles = dynamic(() => import("@/components/AntiGravityParticles"));
+const CustomCursor = dynamic(() => import("@/components/CustomCursor"), {
+  loading: () => null,
+});
+
+const AntiGravityParticles = dynamic(() => import("@/components/AntiGravityParticles"), {
+  loading: () => null,
+});
 
 const FloatingWhatsApp = dynamic(() => import("@/components/FloatingWhatsApp"), {
   loading: () => (
@@ -39,57 +67,68 @@ const FloatingWhatsApp = dynamic(() => import("@/components/FloatingWhatsApp"), 
   ),
 });
 
+const currentYear = 2026;
+
 export default function Home() {
   return (
     <SmoothScroll>
-      <div id="main-content" className="relative min-h-screen bg-black overflow-hidden selection:bg-neon-purple/50 selection:text-white">
-        
+      <div id="main-content" className="relative min-h-screen bg-ebg overflow-hidden selection:bg-electric/30 selection:text-white">
         <CustomCursor />
+        <MouseLighting />
         <AntiGravityParticles />
 
-        <div className="absolute top-0 left-[-20%] w-[60%] h-[60%] rounded-full bg-neon-purple/10 blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-[20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-neon-blue/10 blur-[150px] pointer-events-none" />
-        
+        <div className="absolute top-0 left-[-20%] w-[60%] h-[60%] rounded-full bg-electric-dim blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-[20%] right-[-20%] w-[60%] h-[60%] rounded-full bg-electric-dim blur-[150px] pointer-events-none" />
+
         <Header />
 
-        <section id="hero" className="relative min-h-screen flex items-center justify-center pt-24 pb-12">
-          <div className="absolute inset-0 grid-bg radial-mask pointer-events-none opacity-40 z-0" />
+        <section id="hero">
           <HeroSection />
         </section>
 
-        <section id="diferenciais" className="py-24 relative z-10 bg-black/40">
+        <section id="diferenciais" className="py-24 md:py-32 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20 space-y-4">
-              <span className="text-neon-blue font-black uppercase tracking-widest text-xs md:text-sm">Por que nos escolher?</span>
-              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">Criação de Sites de Alta Performance e Conversão</h2>
-              <div className="h-[2px] w-16 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto rounded-full mt-2" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20 space-y-4">
+              <span className="text-electric font-semibold uppercase tracking-[0.2em] text-xs">Diferenciais</span>
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+                Por que escolher a <span className="text-gradient-electric">Matias Web</span>
+              </h2>
+              <p className="text-white/50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                Tecnologia proprietária, design premiado e inteligência artificial integrada em cada projeto.
+              </p>
             </div>
             <DiferenciaisCards />
           </div>
         </section>
 
-        <section id="portfolio" className="py-24 relative z-10">
+        <AIDashboard />
+
+        <section id="portfolio" className="py-24 md:py-32 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-              <span className="text-neon-purple font-black uppercase tracking-widest text-xs md:text-sm">Demonstração</span>
-              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">O Que Podemos Criar Para Você</h2>
-              <div className="h-[2px] w-16 bg-gradient-to-r from-neon-purple to-neon-blue mx-auto rounded-full mt-2" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20 space-y-4">
+              <span className="text-electric font-semibold uppercase tracking-[0.2em] text-xs">Demonstração</span>
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+                O Que Podemos Criar Para Você
+              </h2>
+              <p className="text-white/50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                De plataformas SaaS a e-commerces premium. Cada projeto é uma experiência digital única.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              <ProjectMockup title="SaaS Corporativo" type="Plataforma de IA" gradient="from-neon-blue to-cyan-500" />
-              <ProjectMockup title="Landing Page de Vendas" type="Infoprodutos & Serviços" gradient="from-neon-purple to-pink-500" />
-              <ProjectMockup title="E-Commerce Premium" type="Loja Virtual" gradient="from-neon-blue to-purple-600" />
-              <ProjectMockup title="Clínica Médica / Estética" type="Agendamentos" gradient="from-emerald-400 to-neon-blue" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <ProjectMockup title="SaaS Corporativo" type="Plataforma de IA" gradient="from-electric to-blue-500" />
+              <ProjectMockup title="Landing Page de Vendas" type="Infoprodutos & Serviços" gradient="from-electric to-purple-500" />
+              <ProjectMockup title="E-Commerce Premium" type="Loja Virtual" gradient="from-electric to-cyan-500" />
+              <ProjectMockup title="Clínica Médica / Estética" type="Agendamentos" gradient="from-emerald-400 to-electric" />
               <ProjectMockup title="Escritórios de Advocacia" type="Institucional" gradient="from-amber-400 to-orange-500" />
-              <ProjectMockup title="Prestadores de Serviços" type="Captação de Clientes" gradient="from-rose-500 to-neon-purple" />
+              <ProjectMockup title="Prestadores de Serviços" type="Captação de Clientes" gradient="from-rose-500 to-electric" />
             </div>
           </div>
         </section>
 
-        <section className="py-20 relative z-10 bg-black/50">
+        <section className="py-20 md:py-24 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <StatCounter value="+300%" title="Aumento médio de conversão" />
               <StatCounter value="+95%" title="Satisfação dos clientes" />
               <StatCounter value="100%" title="Responsivo & Otimizado" />
@@ -98,56 +137,60 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="metodo" className="py-24 relative z-10">
+        <section id="metodo" className="py-24 md:py-32 relative z-10">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20 space-y-4">
-              <span className="text-neon-blue font-black uppercase tracking-widest text-xs md:text-sm">Nosso Processo</span>
-              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">A Jornada do Seu Site de Sucesso</h2>
-              <div className="h-[2px] w-16 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto rounded-full mt-2" />
+            <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20 space-y-4">
+              <span className="text-electric font-semibold uppercase tracking-[0.2em] text-xs">Processo</span>
+              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+                A Jornada do Seu Site de Sucesso
+              </h2>
+              <p className="text-white/50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                Seis etapas comprovadas para transformar sua visão em uma máquina de resultados.
+              </p>
             </div>
             <MetodoTimeline />
           </div>
         </section>
 
-        <section id="contato" className="py-24 relative z-10">
-          <CTASection />
+        <section id="contato" className="py-24 md:py-32 relative z-10">
+          <div className="max-w-7xl mx-auto px-6">
+            <CTASection />
+          </div>
         </section>
 
-        <footer className="relative z-10 border-t border-white/5 bg-neutral-950/80 backdrop-blur-md pt-16 pb-12">
+        <footer className="relative z-10 border-t border-white/[0.03] bg-ebg/80 backdrop-blur-xl pt-16 pb-12">
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-            
             <div className="md:col-span-6 space-y-4">
               <a href="#" className="flex items-center gap-2">
                 <Logo />
               </a>
-              <p className="text-gray-400 text-sm max-w-sm leading-relaxed font-light">
+              <p className="text-white/30 text-sm max-w-sm leading-relaxed font-light">
                 {SITE.description}
               </p>
             </div>
 
             <div className="md:col-span-3 space-y-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-neon-purple">Links Úteis</h4>
-              <ul className="space-y-2.5 text-sm text-gray-400 font-light">
-                <li><a href="#diferenciais" className="hover:text-white transition-colors duration-200">Diferenciais</a></li>
-                <li><a href="#portfolio" className="hover:text-white transition-colors duration-200">Portfólio</a></li>
-                <li><a href="#metodo" className="hover:text-white transition-colors duration-200">Nosso Método</a></li>
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Links</h4>
+              <ul className="space-y-2.5 text-sm text-white/30 font-light">
+                <li><a href="#diferenciais" className="hover:text-white/60 transition-colors duration-200">Diferenciais</a></li>
+                <li><a href="#portfolio" className="hover:text-white/60 transition-colors duration-200">Portfólio</a></li>
+                <li><a href="#metodo" className="hover:text-white/60 transition-colors duration-200">Método</a></li>
               </ul>
             </div>
 
             <div className="md:col-span-3 space-y-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-neon-blue">Contato</h4>
-              <p className="text-sm text-gray-400 leading-normal font-light">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Contato</h4>
+              <p className="text-sm text-white/30 leading-normal font-light">
                 WhatsApp:{" "}
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-white hover:text-neon-blue font-semibold transition-colors duration-200">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-electric font-semibold transition-colors duration-200">
                   (61) 99298-2801
                 </a>
               </p>
             </div>
-
           </div>
 
-          <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-gray-500">
-            <p>&copy; {new Date().getFullYear()} {SITE.name}. Todos os direitos reservados.</p>
+          <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/[0.03] flex flex-col md:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-white/20">
+            <p>&copy; {currentYear} {SITE.name}. Todos os direitos reservados.</p>
             <p className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-center sm:text-left">
               <span>CNPJ: {SITE.cnpj}</span>
               <span className="hidden sm:inline">|</span>
@@ -157,7 +200,6 @@ export default function Home() {
         </footer>
 
         <FloatingWhatsApp />
-
       </div>
     </SmoothScroll>
   );
