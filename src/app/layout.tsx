@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import Script from "next/script";
+import ClientProvider from "@/components/ClientProvider";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
 
@@ -108,7 +109,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
   );
