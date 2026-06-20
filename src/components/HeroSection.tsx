@@ -6,10 +6,10 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
-const Robot3DComponent = dynamic(() => import("@/components/Robot3D"), { ssr: false, loading: () => <div className="w-full h-full flex items-center justify-center"><div className="w-16 h-16 rounded-full border border-white/5 flex items-center justify-center"><div className="w-4 h-4 rounded-full bg-electric/30 animate-pulse-subtle" /></div></div> });
+const SplineRobotComponent = dynamic(() => import("@/components/SplineRobot"), { ssr: false, loading: () => <SplineRobotFallback /> });
 const ShaderAnimation = dynamic(() => import("@/components/ShaderAnimation"), { ssr: false });
 
-function Robot3DFallback() {
+function SplineRobotFallback() {
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="w-16 h-16 rounded-full border border-white/5 flex items-center justify-center">
@@ -100,8 +100,8 @@ function HeroSection() {
           </div>
 
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-            <ErrorBoundary fallback={<Robot3DFallback />}>
-              <Robot3DComponent />
+            <ErrorBoundary fallback={<SplineRobotFallback />}>
+              <SplineRobotComponent />
             </ErrorBoundary>
           </div>
         </div>
