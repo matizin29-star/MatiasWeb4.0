@@ -3,15 +3,24 @@
 import { memo } from "react";
 import dynamic from "next/dynamic";
 import { ArrowUpRight, Sparkles } from "lucide-react";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
 const Model3DComponent = dynamic(() => import("@/components/Model3D"), { ssr: false, loading: () => <div className="w-full h-full rounded-2xl bg-white/[0.02] animate-pulse" /> });
 const ShaderAnimation = dynamic(() => import("@/components/ShaderAnimation"), { ssr: false });
 
+function Hero3DFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full rounded-2xl bg-white/[0.02] animate-pulse" />
+    </div>
+  );
+}
+
 function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center pt-24 md:pt-28 pb-16 md:pb-24 overflow-hidden">
-      <ShaderAnimation />
+      <ErrorBoundary fallback={null}><ShaderAnimation /></ErrorBoundary>
 
       <div className="absolute inset-0 grid-bg radial-mask pointer-events-none opacity-30 z-0" />
 
@@ -89,7 +98,9 @@ function HeroSection() {
           </div>
 
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-            <Model3DComponent />
+            <ErrorBoundary fallback={<Hero3DFallback />}>
+              <Model3DComponent />
+            </ErrorBoundary>
           </div>
         </div>
       </div>

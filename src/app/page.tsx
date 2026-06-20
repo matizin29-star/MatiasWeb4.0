@@ -84,7 +84,25 @@ export default function Home() {
         <ErrorBoundary><Header /></ErrorBoundary>
 
         <section id="hero">
-          <ErrorBoundary><HeroSection /></ErrorBoundary>
+          <ErrorBoundary
+            fallback={
+              <section className="relative min-h-screen flex items-center pt-24 md:pt-28 pb-16 md:pb-24">
+                <div className="max-w-7xl mx-auto px-6 w-full">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div className="space-y-6 md:space-y-8">
+                      <div className="h-6 w-48 rounded-full bg-white/5 animate-pulse" />
+                      <div className="h-16 md:h-20 w-3/4 rounded-xl bg-white/5 animate-pulse" />
+                      <div className="h-4 w-full rounded bg-white/5 animate-pulse" />
+                      <div className="h-4 w-2/3 rounded bg-white/5 animate-pulse" />
+                    </div>
+                    <div className="h-[300px] md:h-[400px] lg:h-[500px] rounded-2xl bg-white/5 animate-pulse" />
+                  </div>
+                </div>
+              </section>
+            }
+          >
+            <HeroSection />
+          </ErrorBoundary>
         </section>
 
         <section id="diferenciais" className="py-24 md:py-32 relative z-10">
