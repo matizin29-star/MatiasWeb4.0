@@ -1,11 +1,11 @@
 "use client";
 
-import { memo, Suspense } from "react";
+import { memo } from "react";
 import dynamic from "next/dynamic";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { WHATSAPP_LINK } from "@/lib/constants";
 
-const SplineScene = dynamic(() => import("@/components/ui/splite"), { ssr: false });
+const Model3DComponent = dynamic(() => import("@/components/Model3D"), { ssr: false, loading: () => <div className="w-full h-full rounded-2xl bg-white/[0.02] animate-pulse" /> });
 const ShaderAnimation = dynamic(() => import("@/components/ShaderAnimation"), { ssr: false });
 
 function HeroSection() {
@@ -89,9 +89,7 @@ function HeroSection() {
           </div>
 
           <div className="relative h-[300px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-            <Suspense fallback={<div className="w-full h-full rounded-2xl bg-white/[0.02] animate-pulse" />}>
-              <SplineScene />
-            </Suspense>
+            <Model3DComponent />
           </div>
         </div>
       </div>
